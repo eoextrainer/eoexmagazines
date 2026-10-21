@@ -1,0 +1,1336 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0a0b0e">
+    <meta name="description" content="CARTESIENES by EOEX — a considered collection spanning style, travel, living, and success.">
+    <title>CARTESIENES — Le Kiosque Numérique</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        color-scheme: dark;
+        --obsidian: #0a0b0e;
+        --midnight: #14161c;
+        --gold: #c6a87c;
+        --champagne: #e6d5b8;
+        --white: #f5f5f7;
+        --slate: #8a8d93;
+        --red: #a83232;
+        --line: rgba(230, 213, 184, 0.18);
+        --serif: "Playfair Display", Georgia, serif;
+        --sans: "Inter", Arial, sans-serif;
+        --card-serif: "Cinzel", Georgia, serif;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; scroll-padding-top: 92px; }
+      body {
+        margin: 0;
+        min-width: 320px;
+        background: var(--obsidian);
+        color: var(--white);
+        font-family: var(--sans);
+        -webkit-font-smoothing: antialiased;
+      }
+      button, input { font: inherit; }
+      button, a { -webkit-tap-highlight-color: transparent; }
+      a { color: inherit; text-decoration: none; }
+      button { color: inherit; }
+      .eyebrow {
+        color: var(--gold);
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: .24em;
+        text-transform: uppercase;
+      }
+
+      .site-header {
+        position: fixed;
+        z-index: 20;
+        inset: 0 0 auto;
+        height: 78px;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        padding: 0 clamp(22px, 5vw, 76px);
+        border-bottom: 1px solid rgba(230, 213, 184, .1);
+        background: rgba(10, 11, 14, .88);
+        backdrop-filter: blur(18px);
+      }
+      .wordmark {
+        width: fit-content;
+        color: var(--champagne);
+        font-family: var(--serif);
+        font-size: 17px;
+        letter-spacing: .16em;
+      }
+      .main-nav { display: flex; align-items: center; gap: clamp(18px, 3vw, 42px); }
+      .main-nav a {
+        color: #c5c4c2;
+        font-size: 9px;
+        font-weight: 600;
+        letter-spacing: .16em;
+        transition: color .2s ease;
+      }
+      .main-nav a:hover, .main-nav a:focus-visible { color: var(--gold); }
+      .header-actions { justify-self: end; display: flex; gap: 8px; }
+      .language-select {
+        width: 92px;
+        min-width: 0;
+        padding: 8px 20px 8px 9px;
+        border: 1px solid rgba(230, 213, 184, .2);
+        border-radius: 2px;
+        outline-color: var(--gold);
+        background: #14161c;
+        color: var(--champagne);
+        font-size: 9px;
+        letter-spacing: .04em;
+        cursor: pointer;
+      }
+      .language-select:focus-visible { border-color: var(--gold); }
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        clip-path: inset(50%);
+      }
+      .icon-button {
+        width: 38px;
+        height: 38px;
+        display: grid;
+        place-items: center;
+        border: 1px solid transparent;
+        border-radius: 50%;
+        background: transparent;
+        color: var(--champagne);
+        cursor: pointer;
+        transition: border-color .2s, color .2s;
+      }
+      .icon-button:hover, .icon-button:focus-visible { border-color: var(--line); color: var(--gold); }
+      .icon-button svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+      .menu-button { display: none; }
+
+      .hero {
+        min-height: 680px;
+        height: min(100svh, 940px);
+        display: grid;
+        place-items: center;
+        position: relative;
+        overflow: hidden;
+        padding: 120px 24px 72px;
+        background:
+          radial-gradient(ellipse at 50% 42%, rgba(52, 45, 37, .32), transparent 38%),
+          radial-gradient(ellipse at 50% 100%, #14161c 0%, rgba(10, 11, 14, 0) 62%),
+          var(--obsidian);
+      }
+      .hero::before, .hero::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        width: 1px;
+        background: linear-gradient(transparent, rgba(198, 168, 124, .28), transparent);
+      }
+      .hero::before { top: 0; height: 23%; }
+      .hero::after { bottom: 0; height: 18%; }
+      .hero-content { position: relative; z-index: 1; text-align: center; }
+      .hero .eyebrow { margin: 0 0 22px; }
+      .hero h1 {
+        margin: 0;
+        color: var(--white);
+        font-family: var(--serif);
+        font-size: clamp(54px, 9vw, 112px);
+        font-weight: 400;
+        letter-spacing: -.055em;
+        line-height: .98;
+      }
+      .hero-subtitle {
+        margin: 23px 0 0;
+        color: var(--champagne);
+        font-family: var(--serif);
+        font-size: clamp(17px, 2vw, 22px);
+        font-style: italic;
+      }
+      .hero-note {
+        margin: 15px 0 0;
+        color: var(--slate);
+        font-size: 11px;
+        letter-spacing: .06em;
+      }
+      .suit-select {
+        display: flex;
+        justify-content: center;
+        gap: clamp(14px, 3vw, 34px);
+        margin: 56px 0 0;
+      }
+      .suit-link {
+        width: 88px;
+        display: grid;
+        justify-items: center;
+        gap: 10px;
+        color: var(--slate);
+        font-size: 9px;
+        letter-spacing: .13em;
+        text-transform: uppercase;
+        transition: color .2s, transform .2s;
+      }
+      .suit-link:hover { color: var(--white); transform: translateY(-4px); }
+      .suit-glyph { color: var(--gold); font-family: var(--card-serif); font-size: 28px; line-height: 1; }
+      .suit-link[data-suit="hearts"] .suit-glyph,
+      .suit-link[data-suit="diamonds"] .suit-glyph { color: var(--red); }
+      .scroll-cue {
+        position: absolute;
+        bottom: 32px;
+        color: var(--slate);
+        font-size: 8px;
+        letter-spacing: .22em;
+        text-transform: uppercase;
+      }
+
+      .deck-section { padding: 60px 0 20px; }
+      .section-heading {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 20px;
+        margin: 0 clamp(22px, 5vw, 76px) 28px;
+      }
+      .section-heading h2 {
+        margin: 8px 0 0;
+        font-family: var(--serif);
+        font-size: clamp(26px, 3vw, 38px);
+        font-weight: 400;
+        letter-spacing: -.025em;
+      }
+      .section-heading p { margin: 0; color: var(--slate); font-size: 11px; }
+      .shelf-controls { display: flex; gap: 8px; }
+      .shelf-controls button {
+        width: 34px;
+        height: 34px;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        background: transparent;
+        color: var(--champagne);
+        cursor: pointer;
+        transition: background .2s, border-color .2s;
+      }
+      .shelf-controls button:hover { border-color: var(--gold); background: rgba(198, 168, 124, .1); }
+      .shelf {
+        display: flex;
+        gap: 25px;
+        overflow-x: auto;
+        padding: 14px clamp(22px, 5vw, 76px) 42px;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        cursor: grab;
+        overscroll-behavior-x: contain;
+      }
+      .shelf::-webkit-scrollbar { display: none; }
+      .shelf.is-dragging { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+      .magazine-card {
+        --suit-color: var(--gold);
+        position: relative;
+        flex: 0 0 250px;
+        aspect-ratio: 3 / 4;
+        scroll-snap-align: start;
+        border: 1px solid rgba(198, 168, 124, .72);
+        border-radius: 9px;
+        background: var(--midnight);
+        box-shadow: -10px 10px 30px rgba(0, 0, 0, .58);
+        transform: perspective(1000px) rotateY(-8deg) scale(.97);
+        transition: transform .4s ease, box-shadow .4s ease, border-color .4s ease;
+        perspective: 1100px;
+      }
+      .magazine-card:hover, .magazine-card:focus-within {
+        z-index: 2;
+        border-color: var(--champagne);
+        box-shadow: 0 0 26px rgba(198, 168, 124, .25), 0 20px 42px rgba(0, 0, 0, .5);
+        transform: perspective(1000px) rotateY(0) translateY(-7px) scale(1.025);
+      }
+      .card-inner {
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        transform-style: preserve-3d;
+        transition: transform .72s cubic-bezier(.2, .72, .25, 1);
+      }
+      .magazine-card:hover .card-inner,
+      .magazine-card.is-flipped .card-inner { transform: rotateY(180deg); }
+      .magazine-card:hover .card-inner { transition-delay: .24s; }
+      .card-face {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        border-radius: inherit;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+      }
+      .card-front { background: var(--midnight); }
+      .card-back {
+        display: grid;
+        place-items: center;
+        border: 1px solid rgba(230, 213, 184, .55);
+        background-color: #171611;
+        background-image:
+          radial-gradient(ellipse at center, transparent 0 11px, rgba(198, 168, 124, .13) 11.5px 12.5px, transparent 13px 25px, rgba(198, 168, 124, .09) 25.5px 26.5px, transparent 27px),
+          repeating-linear-gradient(45deg, transparent 0 9px, rgba(230, 213, 184, .035) 9px 10px, transparent 10px 19px),
+          linear-gradient(135deg, #201d17, #101114 48%, #201d17);
+        transform: rotateY(180deg);
+      }
+      .card-back::before, .card-back::after {
+        content: "";
+        position: absolute;
+        inset: 11px;
+        border: 1px solid rgba(198, 168, 124, .55);
+        pointer-events: none;
+      }
+      .card-back::after { inset: 16px; border-color: rgba(230, 213, 184, .18); }
+      .card-back-content { position: relative; z-index: 1; padding: 28px; text-align: center; }
+      .card-back-suit { display: block; color: var(--suit-color); font-family: var(--card-serif); font-size: 42px; line-height: 1; }
+      .card-back-brand { margin: 17px 0 0; color: var(--champagne); font-family: var(--serif); font-size: 12px; letter-spacing: .19em; }
+      .card-back-rule { width: 38px; height: 1px; margin: 16px auto; background: var(--gold); }
+      .card-back-title { margin: 0; color: var(--white); font-family: var(--serif); font-size: 21px; font-weight: 400; line-height: 1.2; }
+      .card-back-rank { margin: 10px 0 21px; color: var(--champagne); font-family: var(--card-serif); font-size: 9px; letter-spacing: .2em; }
+      .card-back .card-action {
+        position: static;
+        padding: 10px 14px;
+        border-color: rgba(198, 168, 124, .7);
+        opacity: 1;
+        transform: none;
+        pointer-events: auto;
+      }
+      .card-back-actions { display: flex; justify-content: center; gap: 8px; }
+      .card-image {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform .65s cubic-bezier(.2, .7, .2, 1);
+      }
+      .magazine-card:hover .card-front .card-image,
+      .magazine-card:focus-within .card-front .card-image { transform: scale(1.055); }
+      .card-shade {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(9, 10, 12, .5), transparent 31%, transparent 53%, rgba(9, 10, 12, .8));
+        pointer-events: none;
+      }
+      .card-top, .card-bottom {
+        position: absolute;
+        right: 17px;
+        left: 17px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .card-top { top: 17px; }
+      .card-bottom { bottom: 17px; }
+      .card-brand {
+        color: var(--white);
+        font-family: var(--serif);
+        font-size: 9px;
+        letter-spacing: .18em;
+        text-shadow: 0 1px 8px #000;
+      }
+      .card-suit { color: var(--suit-color); font-family: var(--card-serif); font-size: 19px; text-shadow: 0 1px 7px #000; }
+      .card-index { color: var(--champagne); font-family: var(--card-serif); font-size: 10px; letter-spacing: .1em; text-shadow: 0 1px 8px #000; }
+      .card-credit { color: rgba(245, 245, 247, .8); font-size: 8px; letter-spacing: .12em; text-shadow: 0 1px 8px #000; }
+      .card-copy {
+        position: absolute;
+        right: 18px;
+        bottom: 61px;
+        left: 18px;
+        text-shadow: 0 2px 12px rgba(0, 0, 0, .7);
+      }
+      .card-copy .card-category { color: var(--champagne); font-size: 8px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; }
+      .card-copy h3 { margin: 7px 0 0; font-family: var(--serif); font-size: 25px; font-weight: 500; line-height: 1.05; }
+      .card-copy p { margin: 7px 0 0; color: rgba(245, 245, 247, .82); font-size: 9px; letter-spacing: .08em; }
+      .card-action {
+        padding: 8px 11px;
+        border: 1px solid rgba(230, 213, 184, .65);
+        border-radius: 2px;
+        background: rgba(10, 11, 14, .64);
+        color: var(--white);
+        font-size: 8px;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+      .card-turn {
+        position: absolute;
+        right: 14px;
+        bottom: 14px;
+        opacity: 0;
+        transform: translateY(4px);
+        transition: opacity .2s, transform .2s;
+      }
+      .magazine-card:hover .card-turn, .magazine-card:focus-within .card-turn { opacity: 1; transform: translateY(0); }
+      .card-face[aria-hidden="true"] .card-action,
+      .card-face[aria-hidden="true"] .card-turn { visibility: hidden; }
+
+      .smartbox {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        gap: 32px;
+        margin: 96px clamp(22px, 5vw, 76px);
+        padding: clamp(30px, 5vw, 62px);
+        overflow: hidden;
+        border: 1px solid rgba(198, 168, 124, .36);
+        background:
+          radial-gradient(ellipse at 84% 45%, rgba(198, 168, 124, .16), transparent 35%),
+          linear-gradient(115deg, #17181b, #101115 68%);
+      }
+      .smartbox::after {
+        content: "♠";
+        position: absolute;
+        top: 50%;
+        right: 19%;
+        color: rgba(198, 168, 124, .06);
+        font-family: var(--card-serif);
+        font-size: clamp(150px, 24vw, 300px);
+        line-height: 1;
+        transform: translateY(-50%);
+        pointer-events: none;
+      }
+      .smartbox-copy, .countdown { position: relative; z-index: 1; }
+      .smartbox h2 { margin: 10px 0 12px; font-family: var(--serif); font-size: clamp(32px, 5vw, 54px); font-weight: 400; }
+      .smartbox p { max-width: 470px; margin: 0; color: #b4b4b3; font-size: 12px; line-height: 1.8; }
+      .text-link { display: inline-flex; gap: 12px; align-items: center; margin-top: 25px; color: var(--champagne); font-size: 9px; letter-spacing: .16em; text-transform: uppercase; }
+      .text-link span { color: var(--gold); font-size: 16px; transition: transform .2s; }
+      .text-link:hover span { transform: translateX(4px); }
+      .countdown { display: flex; gap: clamp(12px, 2.5vw, 28px); }
+      .countdown-unit { min-width: 45px; text-align: center; }
+      .countdown-unit strong { display: block; color: var(--champagne); font-family: var(--serif); font-size: clamp(26px, 4vw, 40px); font-weight: 400; }
+      .countdown-unit span { color: var(--slate); font-size: 8px; letter-spacing: .16em; text-transform: uppercase; }
+
+      .footer {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 36px;
+        padding: 58px clamp(22px, 5vw, 76px) 28px;
+        border-top: 1px solid var(--line);
+        background: #0d0e11;
+      }
+      .affiliate-section {
+        grid-column: 1 / -1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 22px 0;
+        border-top: 1px solid rgba(230, 213, 184, .1);
+        border-bottom: 1px solid rgba(230, 213, 184, .1);
+      }
+      .affiliate-heading { margin: 0; color: var(--champagne); font-family: var(--serif); font-size: 15px; font-weight: 400; }
+      .affiliate-caption { margin: 6px 0 0; color: var(--slate); font-size: 9px; letter-spacing: .04em; }
+      .affiliate-links { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 10px 26px; }
+      .affiliate-link {
+        color: var(--champagne);
+        font-family: var(--serif);
+        font-size: 11px;
+        letter-spacing: .06em;
+        transition: color .2s;
+      }
+      a.affiliate-link:hover, a.affiliate-link:focus-visible { color: var(--gold); }
+      .affiliate-coming { color: var(--slate); }
+      .affiliate-coming span { margin-left: 5px; color: #666970; font-family: var(--sans); font-size: 8px; letter-spacing: .08em; text-transform: uppercase; }
+      .footer-brand { font-family: var(--serif); font-size: 20px; letter-spacing: .12em; }
+      .footer-tagline { margin: 12px 0 0; color: var(--slate); font-family: var(--serif); font-size: 13px; font-style: italic; }
+      .footer-links { display: flex; justify-content: center; align-content: start; flex-wrap: wrap; gap: 14px 22px; }
+      .footer-links a, .legal { color: var(--slate); font-size: 9px; letter-spacing: .08em; }
+      .footer-links a:hover { color: var(--champagne); }
+      .subscribe { justify-self: end; width: min(100%, 300px); }
+      .subscribe label { display: block; margin-bottom: 12px; color: var(--champagne); font-family: var(--serif); font-size: 16px; }
+      .subscribe-row { display: flex; border-bottom: 1px solid rgba(230, 213, 184, .4); }
+      .subscribe input {
+        width: 100%;
+        min-width: 0;
+        padding: 10px 0;
+        border: 0;
+        outline: 0;
+        background: transparent;
+        color: var(--white);
+        font-size: 10px;
+      }
+      .subscribe input::placeholder { color: #696b70; }
+      .subscribe button { border: 0; background: transparent; color: var(--gold); font-size: 9px; letter-spacing: .12em; cursor: pointer; }
+      .form-message { min-height: 14px; margin: 8px 0 0; color: var(--slate); font-size: 9px; line-height: 1.5; }
+      .footer-bottom { grid-column: 1 / -1; display: flex; justify-content: space-between; gap: 16px; padding-top: 18px; border-top: 1px solid rgba(230, 213, 184, .1); }
+      .footer-bottom .legal { font-size: 8px; }
+      .by-eoex { color: var(--champagne); font-family: var(--serif); font-size: 11px; letter-spacing: .08em; }
+
+      .search-panel {
+        position: fixed;
+        z-index: 30;
+        inset: 78px 0 auto;
+        display: none;
+        padding: 24px clamp(22px, 5vw, 76px);
+        border-bottom: 1px solid var(--line);
+        background: rgba(20, 22, 28, .97);
+      }
+      .search-panel.is-open { display: block; }
+      .search-panel input { width: 100%; padding: 10px 0; border: 0; border-bottom: 1px solid var(--line); outline: 0; background: transparent; color: var(--white); font-family: var(--serif); font-size: clamp(20px, 4vw, 30px); }
+      .search-hint { margin: 10px 0 0; color: var(--slate); font-size: 10px; }
+      .empty-state { padding: 25px clamp(22px, 5vw, 76px); color: var(--slate); font-size: 12px; }
+      dialog {
+        width: min(440px, calc(100% - 32px));
+        padding: 0;
+        border: 1px solid rgba(198, 168, 124, .5);
+        background: var(--midnight);
+        color: var(--white);
+      }
+      dialog::backdrop { background: rgba(0, 0, 0, .78); backdrop-filter: blur(5px); }
+      .dialog-content { padding: 34px; }
+      .dialog-close { float: right; border: 0; background: none; color: var(--champagne); font-size: 20px; cursor: pointer; }
+      .dialog-content h2 { margin: 18px 0 8px; font-family: var(--serif); font-size: 32px; font-weight: 400; }
+      .dialog-content p { color: #b4b4b3; font-size: 12px; line-height: 1.7; }
+      .dialog-meta { color: var(--gold) !important; font-size: 9px !important; letter-spacing: .16em; text-transform: uppercase; }
+
+      @media (min-width: 1100px) {
+        .magazine-card { flex-basis: 280px; }
+      }
+      @media (max-width: 760px) {
+        .site-header { height: 68px; grid-template-columns: 1fr auto auto; gap: 8px; padding-inline: 20px; }
+        .wordmark { font-size: 14px; }
+        .header-actions { gap: 4px; }
+        .language-select { width: 80px; padding-left: 6px; }
+        .main-nav {
+          position: absolute;
+          top: 68px;
+          right: 0;
+          left: 0;
+          display: none;
+          align-items: stretch;
+          padding: 12px 22px 18px;
+          border-bottom: 1px solid var(--line);
+          background: rgba(10, 11, 14, .97);
+        }
+        .main-nav.is-open { display: flex; flex-direction: column; gap: 0; }
+        .main-nav a { padding: 14px 0; border-bottom: 1px solid rgba(230, 213, 184, .08); }
+        .menu-button { display: grid; }
+        .hero { min-height: 650px; }
+        .suit-select { gap: 3px; margin-top: 45px; }
+        .suit-link { width: 75px; font-size: 8px; }
+        .section-heading { align-items: center; }
+        .section-heading p { display: none; }
+        .shelf-controls { display: none; }
+        .magazine-card { flex-basis: min(68vw, 250px); }
+        .smartbox { grid-template-columns: 1fr; margin-block: 65px; }
+        .countdown { justify-content: flex-start; }
+        .footer { grid-template-columns: 1fr 1fr; }
+        .affiliate-section { align-items: flex-start; flex-direction: column; gap: 16px; }
+        .affiliate-links { justify-content: flex-start; gap: 13px 20px; }
+        .footer-links { justify-content: flex-start; }
+        .subscribe { grid-column: 1 / -1; justify-self: start; }
+        .search-panel { top: 68px; }
+      }
+      @media (max-width: 430px) {
+        .header-actions { gap: 0; }
+        .site-header { padding-inline: 12px; }
+        .icon-button { width: 34px; }
+        .language-select { width: 60px; padding: 8px 8px 8px 5px; font-size: 8px; }
+        .hero h1 { font-size: 54px; }
+        .suit-link { width: 64px; letter-spacing: .08em; }
+        .footer { grid-template-columns: 1fr; }
+        .footer-links, .subscribe { grid-column: auto; }
+        .footer-bottom { flex-direction: column; }
+      }
+      @media (hover: none) {
+        .card-turn { opacity: 1; transform: none; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="wordmark" href="#top" aria-label="CARTESIENES home">CARTESIENES</a>
+      <nav class="main-nav" id="main-nav" aria-label="Main navigation">
+        <a href="#latest" data-i18n="navDeck">THE DECK</a>
+        <a href="#smartbox" data-i18n="navSmartbox">SMARTBOX</a>
+        <a href="#subscribe" data-i18n="navSubscribe">SUBSCRIBE</a>
+        <a href="#press" data-i18n="navPress">PRESS</a>
+      </nav>
+      <div class="header-actions">
+        <label class="visually-hidden" for="language-select" data-i18n="languageLabel">Langue</label>
+        <select class="language-select" id="language-select" aria-label="Langue" title="Langue">
+          <option value="fr">Français</option>
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="it">Italiano</option>
+          <option value="pt">Português</option>
+          <option value="de">Deutsch</option>
+        </select>
+        <button class="icon-button" id="search-toggle" type="button" aria-label="Rechercher des numéros" aria-expanded="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg>
+        </button>
+        <button class="icon-button menu-button" id="menu-toggle" type="button" aria-label="Ouvrir la navigation" aria-expanded="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="search-panel" id="search-panel" role="search">
+      <label class="eyebrow" for="issue-search" data-i18n="searchLabel">Rechercher dans la collection</label>
+      <input id="issue-search" type="search" placeholder="Essayez « élégance », la Riviera ou le numéro 01…" autocomplete="off" data-i18n-placeholder="searchPlaceholder">
+      <p class="search-hint" data-i18n="searchHint">Recherchez par titre, numéro ou collection. Appuyez sur Échap pour fermer.</p>
+    </div>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-content">
+          <p class="eyebrow">CARTESIENES BY EOEX &nbsp;·&nbsp; EST. 2024</p>
+          <h1 id="hero-title"><span data-i18n="heroTitleFirst">Le Kiosque</span><br><span data-i18n="heroTitleSecond">Numérique</span></h1>
+          <p class="hero-subtitle" data-i18n="heroSubtitle">Un monde, distribué autrement.</p>
+          <p class="hero-note" data-i18n="heroNote">Choisissez une enseigne pour explorer la collection.</p>
+          <nav class="suit-select" aria-label="Explorer les collections" data-i18n-aria-label="collectionNavLabel">
+            <a class="suit-link" data-suit="hearts" href="#style"><span class="suit-glyph">♥</span><span data-i18n="shortStyle">Style</span></a>
+            <a class="suit-link" data-suit="spades" href="#motion"><span class="suit-glyph">♠</span><span data-i18n="shortMotion">Mouvement</span></a>
+            <a class="suit-link" data-suit="diamonds" href="#living"><span class="suit-glyph">♦</span><span data-i18n="shortLiving">Art de vivre</span></a>
+            <a class="suit-link" data-suit="clubs" href="#success"><span class="suit-glyph">♣</span><span data-i18n="shortSuccess">Réussite</span></a>
+          </nav>
+        </div>
+        <span class="scroll-cue" data-i18n="scrollCue">Faites défiler pour explorer &nbsp; ↓</span>
+      </section>
+
+      <div id="shelves" aria-live="polite"></div>
+
+      <section class="smartbox" id="smartbox" aria-labelledby="smartbox-title">
+        <div class="smartbox-copy">
+          <span class="eyebrow" data-i18n="smartboxEyebrow">Un rituel trimestriel</span>
+          <h2 id="smartbox-title" data-i18n="smartboxTitle">La Smartbox</h2>
+          <p data-i18n="smartboxDescription">Une sélection d’objets, d’éditions et de découvertes. Imaginée par EOEX pour les esprits curieux.</p>
+          <a class="text-link" href="#subscribe"><span data-i18n="smartboxLink">Découvrez la prochaine édition</span><span aria-hidden="true">→</span></a>
+        </div>
+        <div class="countdown" aria-label="Temps restant avant la prochaine édition trimestrielle" data-i18n-aria-label="countdownLabel">
+          <div class="countdown-unit"><strong id="days">00</strong><span data-i18n="days">Jours</span></div>
+          <div class="countdown-unit"><strong id="hours">00</strong><span data-i18n="hours">Heures</span></div>
+          <div class="countdown-unit"><strong id="minutes">00</strong><span data-i18n="minutes">Minutes</span></div>
+          <div class="countdown-unit"><strong id="seconds">00</strong><span data-i18n="seconds">Secondes</span></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" id="press">
+      <div>
+        <a class="footer-brand" href="#top">CARTESIENES</a>
+        <p class="footer-tagline" data-i18n="footerTagline">Un regard indépendant.</p>
+      </div>
+      <nav class="footer-links" aria-label="Navigation de pied de page" data-i18n-aria-label="footerNavLabel">
+        <a href="#latest" data-i18n="navDeck">Le jeu</a>
+        <a href="#smartbox" data-i18n="navSmartbox">Smartbox</a>
+        <a href="#subscribe" data-i18n="navSubscribe">Abonnez-vous</a>
+        <a href="#legal" data-i18n="affiliateDisclosure">Transparence sur les liens affiliés</a>
+      </nav>
+      <section class="affiliate-section" aria-labelledby="affiliate-title">
+        <div>
+          <h2 class="affiliate-heading" id="affiliate-title" data-i18n="networkTitle">L’univers EOEX</h2>
+          <p class="affiliate-caption" data-i18n="networkCaption">Découvrez les autres maisons du réseau.</p>
+        </div>
+        <nav class="affiliate-links" aria-label="Sites EOEX" data-i18n-aria-label="affiliateNavLabel">
+          <a class="affiliate-link" href="https://eoextrainer.github.io/eoexagency/" target="_blank" rel="noopener noreferrer">EOEX AGENCY ↗</a>
+          <span class="affiliate-link affiliate-coming">EOEX ACADEMY<span data-i18n="comingSoon">Bientôt</span></span>
+          <span class="affiliate-link affiliate-coming">EOEX PUBLISHING<span data-i18n="comingSoon">Bientôt</span></span>
+        </nav>
+      </section>
+      <form class="subscribe" id="subscribe">
+        <label for="email" data-i18n="subscribeTitle">Une note du kiosque</label>
+        <div class="subscribe-row">
+          <input id="email" type="email" placeholder="Votre adresse e-mail" required autocomplete="email" data-i18n-placeholder="emailPlaceholder">
+          <button type="submit" data-i18n="signUp">S’INSCRIRE&nbsp; →</button>
+        </div>
+        <p class="form-message" id="form-message" aria-live="polite" data-i18n="formPreview">La liste de diffusion n’est pas encore activée.</p>
+      </form>
+      <div class="footer-bottom" id="legal">
+        <span class="legal">© <span id="year"></span> EOEX. <span data-i18n="copyright">Tous droits réservés. &nbsp;·&nbsp; Certains liens affiliés peuvent donner lieu à une commission.</span></span>
+        <span class="by-eoex" data-i18n="byEoex">Par EOEX</span>
+      </div>
+    </footer>
+
+    <dialog id="issue-dialog" aria-labelledby="dialog-title">
+      <div class="dialog-content">
+        <button class="dialog-close" type="button" aria-label="Fermer les détails du numéro" data-i18n-aria-label="closeDialog">×</button>
+        <p class="eyebrow" data-i18n="dialogEyebrow">CARTESIENES · LA COLLECTION</p>
+        <h2 id="dialog-title"></h2>
+        <p class="dialog-meta" id="dialog-meta"></p>
+        <p id="dialog-description"></p>
+        <p data-i18n="dialogDescription">Cet aperçu présente le numéro. Les éditions numériques complètes seront bientôt disponibles ici.</p>
+      </div>
+    </dialog>
+
+    <script>
+      const suits = [
+        {
+          category: "style", categoryLabel: "Fashion, Style & Elegance", heroLabel: "Style",
+          suit: "hearts", symbol: "♥", description: "Hearts · The art of being",
+          editions: [
+            ["The Riviera", "A study in summer", "photo-1483985988355-763728e1935b"],
+            ["Soft Focus", "The new romantic", "photo-1534528741775-53994a69daeb"],
+            ["After Hours", "Dressed for the night", "photo-1529139574466-a303027c1d8b"],
+            ["The Modern Muse", "An icon in the making", "photo-1524504388940-b1c1722653e1"],
+            ["In Her Element", "A portrait of confidence", "photo-1496747611176-843222e1e57c"],
+            ["The New Silhouette", "A shape of its own", "photo-1515886657613-9f3515b0c78f"],
+            ["Atelier No. 7", "The pleasure of craft", "photo-1525507119028-ed4c629a60a3"],
+            ["A Study in Red", "The season's defining shade", "photo-1539109136881-3be0616acf4b"],
+            ["The Tailored Life", "Precision, with ease", "photo-1515372039744-b8f02a3ae446"],
+            ["Sunday Best", "An artful kind of ease", "photo-1524250502761-1ac6f2e30d43"],
+            ["The Fitting Room", "A personal point of view", "photo-1485230895905-ec40ba36b9bc"],
+            ["Objects of Desire", "The finishing touches", "photo-1509631179647-0177331693ae"],
+            ["The Last Look", "Elegance, after dark", "photo-1485968579580-b6d095142e6e"]
+          ]
+        },
+        {
+          category: "motion", categoryLabel: "Travel & Hospitality in Motion", heroLabel: "Motion",
+          suit: "spades", symbol: "♠", description: "Spades · Made to Move",
+          editions: [
+            ["Open Horizons", "A different kind of escape", "photo-1500530855697-b586d89ba3ee"],
+            ["Blue Hour", "The long way around", "photo-1476514525535-07fb3b4ae5f1"],
+            ["Postcards from Italy", "A coast to remember", "photo-1516483638261-f4dbaf036963"],
+            ["The Private Shore", "Where the water slows", "photo-1510414842594-a61c69b5ae57"],
+            ["Elsewhere", "A world beyond the itinerary", "photo-1530789253388-582c481c54b0"],
+            ["The Grand Hotel", "A stay with a story", "photo-1540541338287-41700207dee6"],
+            ["A Room with a View", "The art of arrival", "photo-1571896349842-33c89424de2d"],
+            ["The Island Edit", "A softer pace of life", "photo-1520250497591-112f2f40a3f4"],
+            ["Check In, Check Out", "A considered escape", "photo-1566073771259-6a8506099945"],
+            ["Salt & Sun", "Summer without an end", "photo-1507525428034-b723cf961d3e"],
+            ["The Art of the Detour", "Take the scenic route", "photo-1498307833015-e7b400441eb8"],
+            ["Beyond the Mountains", "A view worth the climb", "photo-1501785888041-af3ef285b470"],
+            ["The Mediterranean", "Life along the waterline", "photo-1523906834658-6e24ef2386f9"]
+          ]
+        },
+        {
+          category: "living", categoryLabel: "Culinary Taste, Home & Wellness", heroLabel: "Living",
+          suit: "diamonds", symbol: "♦", description: "Diamonds · A sense of place",
+          editions: [
+            ["Quiet Geometry", "Rooms to remember", "photo-1600210492486-724fe5c67fb0"],
+            ["The Art of Living", "A house in the hills", "photo-1600607687939-ce8a6c25118c"],
+            ["Between Spaces", "Lines of belonging", "photo-1600566753086-00f18fb6b3ea"],
+            ["A Table for Two", "The pleasure of place", "photo-1414235077428-338989a2e8c0"],
+            ["The Sunday Table", "An invitation to linger", "photo-1517248135467-4c7edcad34c4"],
+            ["The Well-Lived Room", "A softer point of view", "photo-1600607687920-4e2a09cf159d"],
+            ["Material Matters", "The beauty of the natural", "photo-1616486338812-3dadae4b4ace"],
+            ["A Garden Within", "A little room to breathe", "photo-1618221195710-dd6b41faaea6"],
+            ["The Considered Home", "Objects with a purpose", "photo-1616486029423-aaa4789e8c9a"],
+            ["The New Ritual", "Everyday, made meaningful", "photo-1544367567-0f2fcb009e0b"],
+            ["A Practice of Calm", "Space for stillness", "photo-1506126613408-eca07ce68773"],
+            ["A Taste of Season", "Good things, simply made", "photo-1547592180-85f173990554"],
+            ["A Sense of Home", "Comfort in every detail", "photo-1600607687644-c7171b42498f"]
+          ]
+        },
+        {
+          category: "success", categoryLabel: "Academics, Business & Trade", heroLabel: "Success",
+          suit: "clubs", symbol: "♣", description: "Clubs · The pathways to success",
+          editions: [
+            ["The New Exchange", "Ideas in good company", "photo-1497366216548-37526070297c"],
+            ["A Seat at the Table", "Better work, together", "photo-1497366811353-6870744d04b2"],
+            ["The Founders' Circle", "Building what comes next", "photo-1521737711867-e3b97375f902"],
+            ["The Working Library", "A place to think clearly", "photo-1524758631624-e2822e304c36"],
+            ["The Next Chapter", "An education in possibility", "photo-1556761175-b413da4baf72"],
+            ["The Art of Negotiation", "The value of a good deal", "photo-1552664730-d307ca884978"],
+            ["A Global Outlook", "Business without borders", "photo-1454165804606-c3d57bc86b40"],
+            ["The Long View", "Knowledge as an advantage", "photo-1455390582262-044cdead277a"],
+            ["The Leadership Issue", "A clear sense of direction", "photo-1507679799987-c73779587ccf"],
+            ["The Trade Routes", "Connected by commerce", "photo-1528605248644-14dd04022da1"],
+            ["Ideas into Action", "Where ambition meets purpose", "photo-1551836022-d5d88e9218df"],
+            ["The Scholar's Path", "Curiosity without limits", "photo-1523240795612-9a054b0db644"],
+            ["The Future Is Learned", "A foundation for what follows", "photo-1516979187457-637abb4f9353"]
+          ]
+        }
+      ];
+
+      const ranks = [
+        ["A", "Ace"], ["02", "Two"], ["03", "Three"], ["04", "Four"], ["05", "Five"],
+        ["06", "Six"], ["07", "Seven"], ["08", "Eight"], ["09", "Nine"], ["10", "Ten"],
+        ["J", "Jack"], ["Q", "Queen"], ["K", "King"]
+      ];
+      const issues = suits.flatMap((collection, suitIndex) => collection.editions.map(([title, subtitle, photo], rankIndex) => ({
+        title,
+        subtitle,
+        number: String(suitIndex * 13 + rankIndex + 1).padStart(2, "0"),
+        rank: ranks[rankIndex][0],
+        rankName: ranks[rankIndex][1],
+        rankIndex,
+        category: collection.category,
+        categoryLabel: collection.categoryLabel,
+        suit: collection.suit,
+        symbol: collection.symbol,
+        image: `https://images.unsplash.com/${photo}?auto=format&fit=crop&w=900&q=85`
+      })));
+
+      const shelves = [
+        { id: "latest", title: "The Latest Drop", eyebrow: "Fresh from the press", categories: suits.map((collection) => collection.category), latest: true },
+        ...suits.map((collection) => ({
+          id: collection.category,
+          title: collection.categoryLabel,
+          eyebrow: collection.description,
+          category: collection.category
+        }))
+      ];
+
+      const translations = {
+        fr: {
+          pageTitle: "CARTESIENES — Le Kiosque Numérique",
+          metaDescription: "CARTESIENES par EOEX — une collection dédiée au style, au voyage, à l’art de vivre et à la réussite.",
+          navDeck: "LE JEU", navSmartbox: "SMARTBOX",
+          navSubscribe: "ABONNEZ-VOUS", navPress: "PRESSE", languageLabel: "Langue",
+          searchLabel: "Rechercher dans la collection", searchPlaceholder: "Essayez « élégance », la Riviera ou le numéro 01…",
+          searchHint: "Recherchez par titre, numéro ou collection. Appuyez sur Échap pour fermer.",
+          searchButton: "Rechercher des numéros", menuOpen: "Ouvrir la navigation", menuClose: "Fermer la navigation",
+          heroTitleFirst: "Le Kiosque", heroTitleSecond: "Numérique", heroSubtitle: "Un monde, distribué autrement.",
+          heroNote: "Choisissez une enseigne pour explorer la collection.", collectionNavLabel: "Explorer les collections",
+          shortStyle: "Style", shortMotion: "Mouvement", shortLiving: "Art de vivre", shortSuccess: "Réussite",
+          scrollCue: "Faites défiler pour explorer ↓", latestTitle: "Les dernières éditions", latestEyebrow: "Tout juste parues",
+          collectionLabels: {
+            style: "Mode, style & élégance", motion: "Voyage & hôtellerie en mouvement",
+            living: "Gastronomie, maison & bien-être", success: "Études, affaires & commerce"
+          },
+          collectionDescriptions: {
+            style: "Cœurs · L’art d’être", motion: "Piques · L’art du mouvement",
+            living: "Carreaux · Un art de vivre", success: "Trèfles · Les chemins de la réussite"
+          },
+          suitNames: { hearts: "Cœurs", spades: "Piques", diamonds: "Carreaux", clubs: "Trèfles" },
+          smartboxEyebrow: "Un rituel trimestriel", smartboxTitle: "La Smartbox",
+          smartboxDescription: "Une sélection d’objets, d’éditions et de découvertes. Imaginée par EOEX pour les esprits curieux.",
+          smartboxLink: "Découvrez la prochaine édition", countdownLabel: "Temps restant avant la prochaine édition trimestrielle",
+          days: "Jours", hours: "Heures", minutes: "Minutes", seconds: "Secondes",
+          footerTagline: "Un regard indépendant.", footerNavLabel: "Navigation de pied de page",
+          affiliateDisclosure: "Transparence sur les liens affiliés", networkTitle: "L’univers EOEX",
+          networkCaption: "Découvrez les autres maisons du réseau.", affiliateNavLabel: "Sites EOEX", comingSoon: "Bientôt",
+          subscribeTitle: "Une note du kiosque", emailPlaceholder: "Votre adresse e-mail", signUp: "S’INSCRIRE →",
+          formPreview: "La liste de diffusion n’est pas encore activée.",
+          formSubmitted: "Merci pour votre intérêt. Les inscriptions ouvriront bientôt.",
+          copyright: "Tous droits réservés. · Certains liens affiliés peuvent donner lieu à une commission.",
+          byEoex: "Par EOEX", dialogEyebrow: "CARTESIENES · LA COLLECTION",
+          closeDialog: "Fermer les détails du numéro",
+          dialogDescription: "Cet aperçu présente le numéro. Les éditions numériques complètes seront bientôt disponibles ici.",
+          issueWord: "Numéro", cardTurn: "Retourner", cardRead: "Lire le numéro", cardReturn: "Recto",
+          cardAlt: "Couverture éditoriale : {title}", turnCard: "Retourner la carte {title}",
+          readCard: "Lire {title}", returnCard: "Retourner la carte {title}", carouselLabel: "Faire défiler {title}",
+          scrollLeft: "Faire défiler vers la gauche", scrollRight: "Faire défiler vers la droite",
+          noResults: "Aucun numéro trouvé. Essayez un autre titre ou une autre collection.",
+          ranks: ["As", "Deux", "Trois", "Quatre", "Cinq", "Six", "Sept", "Huit", "Neuf", "Dix", "Valet", "Dame", "Roi"]
+        },
+        en: {
+          pageTitle: "CARTESIENES — The Digital Kiosk",
+          metaDescription: "CARTESIENES by EOEX — a considered collection spanning style, travel, living, and success.",
+          navDeck: "THE DECK", navSmartbox: "SMARTBOX",
+          navSubscribe: "SUBSCRIBE", navPress: "PRESS", languageLabel: "Language",
+          searchLabel: "Search the collection", searchPlaceholder: "Try style, the Riviera, or issue 01…",
+          searchHint: "Search by title, issue, or collection. Press Escape to close.",
+          searchButton: "Search issues", menuOpen: "Open navigation", menuClose: "Close navigation",
+          heroTitleFirst: "The Digital", heroTitleSecond: "Kiosk", heroSubtitle: "A world, dealt differently.",
+          heroNote: "Choose a suit to explore the collection.", collectionNavLabel: "Browse collections",
+          shortStyle: "Style", shortMotion: "Motion", shortLiving: "Living", shortSuccess: "Success",
+          scrollCue: "Scroll to explore ↓", latestTitle: "The Latest Drop", latestEyebrow: "Fresh from the press",
+          collectionLabels: {
+            style: "Fashion, Style & Elegance", motion: "Travel & Hospitality in Motion",
+            living: "Culinary Taste, Home & Wellness", success: "Academics, Business & Trade"
+          },
+          collectionDescriptions: {
+            style: "Hearts · The art of being", motion: "Spades · Made to Move",
+            living: "Diamonds · A sense of place", success: "Clubs · The pathways to success"
+          },
+          suitNames: { hearts: "Hearts", spades: "Spades", diamonds: "Diamonds", clubs: "Clubs" },
+          smartboxEyebrow: "A quarterly ritual", smartboxTitle: "The Smartbox",
+          smartboxDescription: "A considered delivery of objects, editions, and discoveries. Curated by EOEX, made for the curious.",
+          smartboxLink: "Discover the next edition", countdownLabel: "Time until the next quarterly edition",
+          days: "Days", hours: "Hours", minutes: "Minutes", seconds: "Seconds",
+          footerTagline: "An independent point of view.", footerNavLabel: "Footer navigation",
+          affiliateDisclosure: "Affiliate disclosure", networkTitle: "The EOEX universe",
+          networkCaption: "Discover the other houses in our network.", affiliateNavLabel: "EOEX websites", comingSoon: "Coming soon",
+          subscribeTitle: "A note from the kiosk", emailPlaceholder: "Your email address", signUp: "SIGN UP →",
+          formPreview: "The mailing list is not connected yet.",
+          formSubmitted: "Thank you for your interest. Sign-ups will open soon.",
+          copyright: "All rights reserved. · Affiliate links may earn a commission.",
+          byEoex: "By EOEX", dialogEyebrow: "CARTESIENES · THE COLLECTION",
+          closeDialog: "Close issue details",
+          dialogDescription: "This preview introduces the issue. Full digital editions will be available here soon.",
+          issueWord: "Issue", cardTurn: "Turn card", cardRead: "Read issue", cardReturn: "Front",
+          cardAlt: "Editorial cover: {title}", turnCard: "Turn {title} card",
+          readCard: "Read {title}", returnCard: "Turn {title} card back", carouselLabel: "Scroll {title}",
+          scrollLeft: "Scroll left", scrollRight: "Scroll right",
+          noResults: "No issues found. Try another title or collection.",
+          ranks: ["Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"]
+        },
+        es: {
+          pageTitle: "CARTESIENES — El Quiosco Digital",
+          metaDescription: "CARTESIENES de EOEX — una cuidada colección de estilo, viajes, hogar y éxito.",
+          navDeck: "LA COLECCIÓN", navSmartbox: "SMARTBOX",
+          navSubscribe: "SUSCRÍBETE", navPress: "PRENSA", languageLabel: "Idioma",
+          searchLabel: "Buscar en la colección", searchPlaceholder: "Prueba estilo, la Riviera o el número 01…",
+          searchHint: "Busca por título, número o colección. Pulsa Escape para cerrar.",
+          searchButton: "Buscar números", menuOpen: "Abrir navegación", menuClose: "Cerrar navegación",
+          heroTitleFirst: "El Quiosco", heroTitleSecond: "Digital", heroSubtitle: "Un mundo, repartido de otra manera.",
+          heroNote: "Elige un palo para descubrir la colección.", collectionNavLabel: "Explorar colecciones",
+          shortStyle: "Estilo", shortMotion: "Viajes", shortLiving: "Hogar", shortSuccess: "Éxito",
+          scrollCue: "Desliza para explorar ↓", latestTitle: "Las últimas novedades", latestEyebrow: "Recién llegadas",
+          collectionLabels: {
+            style: "Moda, estilo y elegancia", motion: "Viajes y hospitalidad en movimiento",
+            living: "Gastronomía, hogar y bienestar", success: "Academia, negocios y comercio"
+          },
+          collectionDescriptions: {
+            style: "Corazones · El arte de ser", motion: "Picas · Hecho para moverse",
+            living: "Diamantes · El sentido del lugar", success: "Tréboles · El camino al éxito"
+          },
+          suitNames: { hearts: "Corazones", spades: "Picas", diamonds: "Diamantes", clubs: "Tréboles" },
+          smartboxEyebrow: "Un ritual trimestral", smartboxTitle: "La Smartbox",
+          smartboxDescription: "Una cuidada selección de objetos, ediciones y descubrimientos. Curada por EOEX para mentes curiosas.",
+          smartboxLink: "Descubre la próxima edición", countdownLabel: "Tiempo hasta la próxima edición trimestral",
+          days: "Días", hours: "Horas", minutes: "Minutos", seconds: "Segundos",
+          footerTagline: "Una mirada independiente.", footerNavLabel: "Navegación del pie de página",
+          affiliateDisclosure: "Información sobre afiliados", networkTitle: "El universo EOEX",
+          networkCaption: "Descubre las otras marcas de nuestra red.", affiliateNavLabel: "Sitios web de EOEX", comingSoon: "Próximamente",
+          subscribeTitle: "Una nota del quiosco", emailPlaceholder: "Tu correo electrónico", signUp: "SUSCRIBIRME →",
+          formPreview: "La lista de correo aún no está conectada.",
+          formSubmitted: "Gracias por tu interés. Las suscripciones estarán disponibles pronto.",
+          copyright: "Todos los derechos reservados. · Los enlaces de afiliados pueden generar comisiones.",
+          byEoex: "Por EOEX", dialogEyebrow: "CARTESIENES · LA COLECCIÓN",
+          closeDialog: "Cerrar los detalles del número",
+          dialogDescription: "Esta vista previa presenta el número. Las ediciones digitales completas estarán disponibles pronto.",
+          issueWord: "Número", cardTurn: "Girar carta", cardRead: "Leer número", cardReturn: "Anverso",
+          cardAlt: "Portada editorial: {title}", turnCard: "Girar la carta {title}",
+          readCard: "Leer {title}", returnCard: "Volver la carta {title}", carouselLabel: "Desplazar {title}",
+          scrollLeft: "Desplazar a la izquierda", scrollRight: "Desplazar a la derecha",
+          noResults: "No se encontraron números. Prueba otro título o colección.",
+          ranks: ["As", "Dos", "Tres", "Cuatro", "Cinco", "Seis", "Siete", "Ocho", "Nueve", "Diez", "Jota", "Reina", "Rey"]
+        },
+        it: {
+          pageTitle: "CARTESIENES — Il Chiosco Digitale",
+          metaDescription: "CARTESIENES di EOEX — una collezione curata di stile, viaggi, casa e successo.",
+          navDeck: "LA COLLEZIONE", navSmartbox: "SMARTBOX",
+          navSubscribe: "ISCRIVITI", navPress: "STAMPA", languageLabel: "Lingua",
+          searchLabel: "Cerca nella collezione", searchPlaceholder: "Prova stile, la Riviera o il numero 01…",
+          searchHint: "Cerca per titolo, numero o collezione. Premi Esc per chiudere.",
+          searchButton: "Cerca i numeri", menuOpen: "Apri la navigazione", menuClose: "Chiudi la navigazione",
+          heroTitleFirst: "Il Chiosco", heroTitleSecond: "Digitale", heroSubtitle: "Un mondo, distribuito diversamente.",
+          heroNote: "Scegli un seme per esplorare la collezione.", collectionNavLabel: "Esplora le collezioni",
+          shortStyle: "Stile", shortMotion: "Viaggio", shortLiving: "Benessere", shortSuccess: "Successo",
+          scrollCue: "Scorri per esplorare ↓", latestTitle: "Le ultime uscite", latestEyebrow: "Appena pubblicate",
+          collectionLabels: {
+            style: "Moda, stile ed eleganza", motion: "Viaggi e ospitalità in movimento",
+            living: "Gusto, casa e benessere", success: "Accademia, affari e commercio"
+          },
+          collectionDescriptions: {
+            style: "Cuori · L’arte di essere", motion: "Picche · Fatto per muoversi",
+            living: "Quadri · Il senso del luogo", success: "Fiori · I percorsi del successo"
+          },
+          suitNames: { hearts: "Cuori", spades: "Picche", diamonds: "Quadri", clubs: "Fiori" },
+          smartboxEyebrow: "Un rituale trimestrale", smartboxTitle: "La Smartbox",
+          smartboxDescription: "Una selezione curata di oggetti, edizioni e scoperte. Firmata EOEX, pensata per chi è curioso.",
+          smartboxLink: "Scopri la prossima edizione", countdownLabel: "Tempo alla prossima edizione trimestrale",
+          days: "Giorni", hours: "Ore", minutes: "Minuti", seconds: "Secondi",
+          footerTagline: "Uno sguardo indipendente.", footerNavLabel: "Navigazione a piè di pagina",
+          affiliateDisclosure: "Informativa sui link affiliati", networkTitle: "L’universo EOEX",
+          networkCaption: "Scopri gli altri brand della nostra rete.", affiliateNavLabel: "Siti web EOEX", comingSoon: "Prossimamente",
+          subscribeTitle: "Una nota dal chiosco", emailPlaceholder: "Il tuo indirizzo email", signUp: "ISCRIVITI →",
+          formPreview: "La mailing list non è ancora attiva.",
+          formSubmitted: "Grazie per l’interesse. Le iscrizioni apriranno presto.",
+          copyright: "Tutti i diritti riservati. · I link affiliati possono generare commissioni.",
+          byEoex: "Da EOEX", dialogEyebrow: "CARTESIENES · LA COLLEZIONE",
+          closeDialog: "Chiudi i dettagli del numero",
+          dialogDescription: "Questa anteprima presenta il numero. Le edizioni digitali complete saranno disponibili presto.",
+          issueWord: "Numero", cardTurn: "Gira la carta", cardRead: "Leggi il numero", cardReturn: "Fronte",
+          cardAlt: "Copertina editoriale: {title}", turnCard: "Gira la carta {title}",
+          readCard: "Leggi {title}", returnCard: "Gira la carta {title}", carouselLabel: "Scorri {title}",
+          scrollLeft: "Scorri a sinistra", scrollRight: "Scorri a destra",
+          noResults: "Nessun numero trovato. Prova un altro titolo o una collezione.",
+          ranks: ["Asso", "Due", "Tre", "Quattro", "Cinque", "Sei", "Sette", "Otto", "Nove", "Dieci", "Fante", "Donna", "Re"]
+        },
+        pt: {
+          pageTitle: "CARTESIENES — O Quiosque Digital",
+          metaDescription: "CARTESIENES por EOEX — uma coleção cuidada de estilo, viagens, casa e sucesso.",
+          navDeck: "A COLEÇÃO", navSmartbox: "SMARTBOX",
+          navSubscribe: "SUBSCREVER", navPress: "IMPRENSA", languageLabel: "Idioma",
+          searchLabel: "Pesquisar na coleção", searchPlaceholder: "Experimente estilo, Riviera ou edição 01…",
+          searchHint: "Pesquise por título, edição ou coleção. Prima Esc para fechar.",
+          searchButton: "Pesquisar edições", menuOpen: "Abrir navegação", menuClose: "Fechar navegação",
+          heroTitleFirst: "O Quiosque", heroTitleSecond: "Digital", heroSubtitle: "Um mundo, distribuído de outra forma.",
+          heroNote: "Escolha um naipe para explorar a coleção.", collectionNavLabel: "Explorar coleções",
+          shortStyle: "Estilo", shortMotion: "Viagem", shortLiving: "Bem-estar", shortSuccess: "Sucesso",
+          scrollCue: "Deslize para explorar ↓", latestTitle: "As últimas edições", latestEyebrow: "Acabadas de chegar",
+          collectionLabels: {
+            style: "Moda, estilo e elegância", motion: "Viagens e hospitalidade em movimento",
+            living: "Gastronomia, casa e bem-estar", success: "Academia, negócios e comércio"
+          },
+          collectionDescriptions: {
+            style: "Copas · A arte de ser", motion: "Espadas · Feito para mover",
+            living: "Ouros · O sentido do lugar", success: "Paus · Os caminhos do sucesso"
+          },
+          suitNames: { hearts: "Copas", spades: "Espadas", diamonds: "Ouros", clubs: "Paus" },
+          smartboxEyebrow: "Um ritual trimestral", smartboxTitle: "A Smartbox",
+          smartboxDescription: "Uma seleção cuidada de objetos, edições e descobertas. Com curadoria EOEX, feita para mentes curiosas.",
+          smartboxLink: "Descubra a próxima edição", countdownLabel: "Tempo até à próxima edição trimestral",
+          days: "Dias", hours: "Horas", minutes: "Minutos", seconds: "Segundos",
+          footerTagline: "Um olhar independente.", footerNavLabel: "Navegação do rodapé",
+          affiliateDisclosure: "Informação sobre afiliados", networkTitle: "O universo EOEX",
+          networkCaption: "Descubra as outras marcas da nossa rede.", affiliateNavLabel: "Sites EOEX", comingSoon: "Em breve",
+          subscribeTitle: "Uma nota do quiosque", emailPlaceholder: "O seu endereço de e-mail", signUp: "INSCREVER →",
+          formPreview: "A lista de e-mails ainda não está ativa.",
+          formSubmitted: "Obrigado pelo seu interesse. As inscrições abrirão em breve.",
+          copyright: "Todos os direitos reservados. · Os links de afiliados podem gerar comissões.",
+          byEoex: "Por EOEX", dialogEyebrow: "CARTESIENES · A COLEÇÃO",
+          closeDialog: "Fechar os detalhes da edição",
+          dialogDescription: "Esta pré-visualização apresenta a edição. As edições digitais completas estarão disponíveis em breve.",
+          issueWord: "Edição", cardTurn: "Virar carta", cardRead: "Ler edição", cardReturn: "Frente",
+          cardAlt: "Capa editorial: {title}", turnCard: "Virar a carta {title}",
+          readCard: "Ler {title}", returnCard: "Voltar a carta {title}", carouselLabel: "Deslizar {title}",
+          scrollLeft: "Deslizar para a esquerda", scrollRight: "Deslizar para a direita",
+          noResults: "Não foram encontradas edições. Experimente outro título ou coleção.",
+          ranks: ["Ás", "Dois", "Três", "Quatro", "Cinco", "Seis", "Sete", "Oito", "Nove", "Dez", "Valete", "Dama", "Rei"]
+        },
+        de: {
+          pageTitle: "CARTESIENES — Der Digitale Kiosk",
+          metaDescription: "CARTESIENES von EOEX — eine kuratierte Sammlung zu Stil, Reisen, Wohnen und Erfolg.",
+          navDeck: "DAS DECK", navSmartbox: "SMARTBOX",
+          navSubscribe: "ABONNIEREN", navPress: "PRESSE", languageLabel: "Sprache",
+          searchLabel: "Sammlung durchsuchen", searchPlaceholder: "Stil, die Riviera oder Ausgabe 01 suchen…",
+          searchHint: "Nach Titel, Ausgabe oder Sammlung suchen. Zum Schließen Esc drücken.",
+          searchButton: "Ausgaben suchen", menuOpen: "Navigation öffnen", menuClose: "Navigation schließen",
+          heroTitleFirst: "Der Digitale", heroTitleSecond: "Kiosk", heroSubtitle: "Eine Welt, neu verteilt.",
+          heroNote: "Wählen Sie ein Symbol und entdecken Sie die Sammlung.", collectionNavLabel: "Sammlungen entdecken",
+          shortStyle: "Stil", shortMotion: "Reisen", shortLiving: "Wohnen", shortSuccess: "Erfolg",
+          scrollCue: "Scrollen und entdecken ↓", latestTitle: "Neu erschienen", latestEyebrow: "Frisch aus der Presse",
+          collectionLabels: {
+            style: "Mode, Stil & Eleganz", motion: "Reisen & Gastlichkeit in Bewegung",
+            living: "Kulinarik, Wohnen & Wohlbefinden", success: "Wissenschaft, Wirtschaft & Handel"
+          },
+          collectionDescriptions: {
+            style: "Herz · Die Kunst des Seins", motion: "Pik · Für Bewegung gemacht",
+            living: "Karo · Ein Gefühl für Orte", success: "Kreuz · Wege zum Erfolg"
+          },
+          suitNames: { hearts: "Herz", spades: "Pik", diamonds: "Karo", clubs: "Kreuz" },
+          smartboxEyebrow: "Ein vierteljährliches Ritual", smartboxTitle: "Die Smartbox",
+          smartboxDescription: "Eine besondere Auswahl an Objekten, Editionen und Entdeckungen. Von EOEX kuratiert, für Neugierige gemacht.",
+          smartboxLink: "Die nächste Edition entdecken", countdownLabel: "Zeit bis zur nächsten Quartalsedition",
+          days: "Tage", hours: "Stunden", minutes: "Minuten", seconds: "Sekunden",
+          footerTagline: "Ein unabhängiger Blickwinkel.", footerNavLabel: "Seitennavigation",
+          affiliateDisclosure: "Hinweis zu Affiliate-Links", networkTitle: "Das EOEX-Universum",
+          networkCaption: "Entdecken Sie die weiteren Marken unseres Netzwerks.", affiliateNavLabel: "EOEX-Websites", comingSoon: "Demnächst",
+          subscribeTitle: "Eine Nachricht vom Kiosk", emailPlaceholder: "Ihre E-Mail-Adresse", signUp: "ANMELDEN →",
+          formPreview: "Der Newsletter ist noch nicht verfügbar.",
+          formSubmitted: "Vielen Dank für Ihr Interesse. Anmeldungen sind bald möglich.",
+          copyright: "Alle Rechte vorbehalten. · Affiliate-Links können eine Provision einbringen.",
+          byEoex: "Von EOEX", dialogEyebrow: "CARTESIENES · DIE SAMMLUNG",
+          closeDialog: "Ausgabedetails schließen",
+          dialogDescription: "Diese Vorschau stellt die Ausgabe vor. Die vollständigen digitalen Editionen folgen in Kürze.",
+          issueWord: "Ausgabe", cardTurn: "Karte wenden", cardRead: "Ausgabe lesen", cardReturn: "Vorderseite",
+          cardAlt: "Redaktionelles Cover: {title}", turnCard: "Karte {title} wenden",
+          readCard: "{title} lesen", returnCard: "Karte {title} zurückwenden", carouselLabel: "{title} scrollen",
+          scrollLeft: "Nach links scrollen", scrollRight: "Nach rechts scrollen",
+          noResults: "Keine Ausgaben gefunden. Versuchen Sie einen anderen Titel oder eine andere Sammlung.",
+          ranks: ["Ass", "Zwei", "Drei", "Vier", "Fünf", "Sechs", "Sieben", "Acht", "Neun", "Zehn", "Bube", "Dame", "König"]
+        }
+      };
+      let currentLocale = "fr";
+      const languageSelect = document.querySelector("#language-select");
+      const localeFromStorage = window.localStorage.getItem("cartesienes-locale");
+      if (Object.hasOwn(translations, localeFromStorage)) currentLocale = localeFromStorage;
+      languageSelect.value = currentLocale;
+
+      const shelvesRoot = document.querySelector("#shelves");
+      const escapeHtml = (value) => value.replace(/[&<>"']/g, (character) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      })[character]);
+
+      function cardMarkup(issue) {
+        const language = translations[currentLocale];
+        const categoryLabel = language.collectionLabels[issue.category];
+        const localizedRank = language.ranks[issue.rankIndex];
+        return `
+          <article class="magazine-card" style="--suit-color:${issue.suit === "hearts" || issue.suit === "diamonds" ? "var(--red)" : "var(--gold)"}">
+            <div class="card-inner">
+              <div class="card-face card-front" aria-hidden="false">
+                <img class="card-image" src="${issue.image}" alt="${escapeHtml(language.cardAlt.replace("{title}", issue.title))}" loading="lazy">
+                <div class="card-shade" aria-hidden="true"></div>
+                <div class="card-top"><span class="card-brand">CARTESIENES</span><span class="card-suit" aria-label="${issue.suit}">${issue.symbol}</span></div>
+                <div class="card-copy">
+                  <span class="card-category">${escapeHtml(categoryLabel)}</span>
+                  <h3>${escapeHtml(issue.title)}</h3>
+                  <p>${escapeHtml(issue.subtitle)}</p>
+                </div>
+                <div class="card-bottom"><span class="card-index">${escapeHtml(localizedRank)} · ${escapeHtml(language.issueWord)} ${issue.number}</span><span class="card-credit">${escapeHtml(language.byEoex)}</span></div>
+                <button class="card-action card-turn" type="button" data-flip="back" aria-label="${escapeHtml(language.turnCard.replace("{title}", issue.title))}">${escapeHtml(language.cardTurn)}</button>
+              </div>
+              <div class="card-face card-back" aria-hidden="true" inert>
+                <div class="card-back-content">
+                  <span class="card-back-suit" aria-hidden="true">${issue.symbol}</span>
+                  <p class="card-back-brand">CARTESIENES</p>
+                  <div class="card-back-rule"></div>
+                  <h3 class="card-back-title">${escapeHtml(issue.title)}</h3>
+                  <p class="card-back-rank">${escapeHtml(localizedRank)} · ${escapeHtml(issue.suit.toUpperCase())}</p>
+                  <div class="card-back-actions">
+                    <button class="card-action" type="button" data-issue="${issue.number}" aria-label="${escapeHtml(language.readCard.replace("{title}", issue.title))}">${escapeHtml(language.cardRead)}</button>
+                    <button class="card-action card-turn-back" type="button" data-flip="front" aria-label="${escapeHtml(language.returnCard.replace("{title}", issue.title))}">${escapeHtml(language.cardReturn)}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>`;
+      }
+
+      shelves.forEach((shelf) => {
+        const relevant = shelf.latest
+          ? shelf.categories.map((category) => issues.find((issue) => issue.category === category))
+          : issues.filter((issue) => issue.category === shelf.category);
+        const language = translations[currentLocale];
+        const title = shelf.latest ? language.latestTitle : language.collectionLabels[shelf.id];
+        const eyebrow = shelf.latest ? language.latestEyebrow : language.collectionDescriptions[shelf.id];
+        shelvesRoot.insertAdjacentHTML("beforeend", `
+          <section class="deck-section" id="${shelf.id}" aria-labelledby="${shelf.id}-title">
+            <div class="section-heading">
+              <div><span class="eyebrow">${escapeHtml(eyebrow)}</span><h2 id="${shelf.id}-title">${escapeHtml(title)}</h2></div>
+              <div class="shelf-controls" aria-label="${escapeHtml(language.carouselLabel.replace("{title}", title))}">
+                <button type="button" data-direction="-1" aria-label="${escapeHtml(language.scrollLeft)}">←</button>
+                <button type="button" data-direction="1" aria-label="${escapeHtml(language.scrollRight)}">→</button>
+              </div>
+            </div>
+            <div class="shelf" data-shelf="${shelf.id}">${relevant.map(cardMarkup).join("")}</div>
+          </section>`);
+      });
+
+      function applyLocale(locale) {
+        if (!Object.hasOwn(translations, locale)) {
+          throw new RangeError(`Unsupported language: ${locale}`);
+        }
+        currentLocale = locale;
+        const language = translations[locale];
+        document.documentElement.lang = locale;
+        document.title = language.pageTitle;
+        document.querySelector('meta[name="description"]').content = language.metaDescription;
+
+        document.querySelectorAll("[data-i18n]").forEach((element) => {
+          element.textContent = language[element.dataset.i18n];
+        });
+        document.querySelectorAll("[data-i18n-placeholder]").forEach((element) => {
+          element.setAttribute("placeholder", language[element.dataset.i18nPlaceholder]);
+        });
+        document.querySelectorAll("[data-i18n-aria-label]").forEach((element) => {
+          element.setAttribute("aria-label", language[element.dataset.i18nAriaLabel]);
+        });
+        languageSelect.setAttribute("aria-label", language.languageLabel);
+        languageSelect.title = language.languageLabel;
+        document.querySelector("#search-toggle").setAttribute("aria-label", language.searchButton);
+        document.querySelector("#menu-toggle").setAttribute(
+          "aria-label",
+          document.querySelector("#main-nav").classList.contains("is-open") ? language.menuClose : language.menuOpen
+        );
+
+        document.querySelectorAll(".suit-link").forEach((link, index) => {
+          link.querySelector("[data-i18n]").textContent = [
+            language.shortStyle, language.shortMotion, language.shortLiving, language.shortSuccess
+          ][index];
+        });
+        document.querySelectorAll(".deck-section").forEach((section) => {
+          const collection = section.id === "latest" ? null : language.collectionLabels[section.id];
+          const title = section.querySelector(".section-heading h2");
+          const eyebrow = section.querySelector(".section-heading .eyebrow");
+          title.textContent = collection || language.latestTitle;
+          eyebrow.textContent = section.id === "latest" ? language.latestEyebrow : language.collectionDescriptions[section.id];
+          section.querySelector(".shelf-controls").setAttribute("aria-label", language.carouselLabel.replace("{title}", title.textContent));
+          section.querySelector('[data-direction="-1"]').setAttribute("aria-label", language.scrollLeft);
+          section.querySelector('[data-direction="1"]').setAttribute("aria-label", language.scrollRight);
+        });
+        document.querySelectorAll(".magazine-card").forEach((card) => {
+          const issue = issues.find((item) => item.number === card.querySelector("[data-issue]").dataset.issue);
+          const localizedRank = language.ranks[issue.rankIndex];
+          card.querySelector(".card-image").alt = language.cardAlt.replace("{title}", issue.title);
+          card.querySelector(".card-category").textContent = language.collectionLabels[issue.category];
+          card.querySelector(".card-suit").setAttribute("aria-label", language.suitNames[issue.suit]);
+          card.querySelector(".card-index").textContent = `${localizedRank} · ${language.issueWord} ${issue.number}`;
+          card.querySelector(".card-credit").textContent = language.byEoex;
+          card.querySelector(".card-turn").textContent = language.cardTurn;
+          card.querySelector(".card-turn").setAttribute("aria-label", language.turnCard.replace("{title}", issue.title));
+          card.querySelector('[data-issue]').textContent = language.cardRead;
+          card.querySelector('[data-issue]').setAttribute("aria-label", language.readCard.replace("{title}", issue.title));
+          card.querySelector(".card-turn-back").textContent = language.cardReturn;
+          card.querySelector(".card-turn-back").setAttribute("aria-label", language.returnCard.replace("{title}", issue.title));
+          card.querySelector(".card-back-rank").textContent = `${localizedRank} · ${issue.suit.toUpperCase()}`;
+        });
+        document.querySelector(".dialog-close").setAttribute("aria-label", language.closeDialog);
+        const emptyState = document.querySelector(".empty-state");
+        if (emptyState) emptyState.textContent = language.noResults;
+        if (searchInput.value) filterIssues(searchInput.value);
+        if (currentDialogIssue) {
+          document.querySelector("#dialog-meta").textContent = `${language.collectionLabels[currentDialogIssue.category]} · ${language.issueWord} ${currentDialogIssue.number}`;
+        }
+      }
+
+      const dialog = document.querySelector("#issue-dialog");
+      let currentDialogIssue = null;
+      document.addEventListener("click", (event) => {
+        const target = event.target;
+        if (!(target instanceof Element)) return;
+        const flipButton = target.closest("[data-flip]");
+        if (flipButton) {
+          const card = flipButton.closest(".magazine-card");
+          const showBack = flipButton.dataset.flip === "back";
+          card.classList.toggle("is-flipped", showBack);
+          updateCardFaces(card, showBack);
+        }
+        const action = target.closest("[data-issue]");
+        if (action) {
+          const issue = issues.find((item) => item.number === action.getAttribute("data-issue"));
+          if (!issue) return;
+          currentDialogIssue = issue;
+          document.querySelector("#dialog-title").textContent = issue.title;
+          document.querySelector("#dialog-meta").textContent = `${translations[currentLocale].collectionLabels[issue.category]} · ${translations[currentLocale].issueWord} ${issue.number}`;
+          document.querySelector("#dialog-description").textContent = issue.subtitle;
+          dialog.showModal();
+        }
+        const scrollButton = target.closest(".shelf-controls button");
+        if (scrollButton) {
+          const shelf = scrollButton.closest(".deck-section").querySelector(".shelf");
+          shelf.scrollBy({ left: Number(scrollButton.dataset.direction) * shelf.clientWidth * .75, behavior: "smooth" });
+        }
+      });
+      document.querySelector(".dialog-close").addEventListener("click", () => dialog.close());
+      dialog.addEventListener("click", (event) => {
+        if (event.target === dialog) dialog.close();
+      });
+
+      function updateCardFaces(card, showBack) {
+        const front = card.querySelector(".card-front");
+        const back = card.querySelector(".card-back");
+        front.setAttribute("aria-hidden", String(showBack));
+        front.inert = showBack;
+        back.setAttribute("aria-hidden", String(!showBack));
+        back.inert = !showBack;
+      }
+
+      document.querySelectorAll(".magazine-card").forEach((card) => {
+        card.querySelector(".card-inner").addEventListener("transitionend", (event) => {
+          if (event.propertyName === "transform") {
+            updateCardFaces(card, card.matches(":hover") || card.classList.contains("is-flipped"));
+          }
+        });
+      });
+
+      document.querySelectorAll(".shelf").forEach((shelf) => {
+        let isDown = false;
+        let startX = 0;
+        let startScroll = 0;
+        shelf.addEventListener("pointerdown", (event) => {
+          if (event.pointerType === "mouse" && event.button === 0 && !event.target.closest("button")) {
+            isDown = true;
+            startX = event.clientX;
+            startScroll = shelf.scrollLeft;
+            shelf.classList.add("is-dragging");
+          }
+        });
+        window.addEventListener("pointerup", () => {
+          isDown = false;
+          shelf.classList.remove("is-dragging");
+        });
+        shelf.addEventListener("pointermove", (event) => {
+          if (isDown) shelf.scrollLeft = startScroll - (event.clientX - startX);
+        });
+      });
+
+      const searchToggle = document.querySelector("#search-toggle");
+      const searchPanel = document.querySelector("#search-panel");
+      const searchInput = document.querySelector("#issue-search");
+      applyLocale(currentLocale);
+      languageSelect.addEventListener("change", () => {
+        currentLocale = languageSelect.value;
+        window.localStorage.setItem("cartesienes-locale", currentLocale);
+        applyLocale(currentLocale);
+      });
+      searchToggle.addEventListener("click", () => {
+        const isOpen = searchPanel.classList.toggle("is-open");
+        searchToggle.setAttribute("aria-expanded", String(isOpen));
+        if (isOpen) searchInput.focus();
+        else {
+          searchInput.value = "";
+          filterIssues("");
+        }
+      });
+      function filterIssues(query) {
+        const normalized = query.trim().toLowerCase();
+        let visibleCount = 0;
+        document.querySelectorAll(".magazine-card").forEach((card) => {
+          const issue = issues.find((item) => item.number === card.querySelector("[data-issue]").dataset.issue);
+          const collection = suits.find((item) => item.category === issue.category);
+          const matches = !normalized || `${issue.title} ${issue.number} ${issue.rankName} ${translations[currentLocale].ranks[issue.rankIndex]} ${translations[currentLocale].collectionLabels[issue.category]} ${translations[currentLocale].collectionDescriptions[issue.category]} ${collection.description} ${issue.subtitle}`.toLowerCase().includes(normalized);
+          card.hidden = !matches;
+          if (matches) visibleCount += 1;
+        });
+        document.querySelectorAll(".deck-section").forEach((section) => {
+          const cards = [...section.querySelectorAll(".magazine-card")];
+          section.hidden = normalized.length > 0 && !cards.some((card) => !card.hidden);
+        });
+        let emptyState = document.querySelector(".empty-state");
+        if (normalized && visibleCount === 0) {
+          if (!emptyState) {
+            emptyState = document.createElement("p");
+            emptyState.className = "empty-state";
+            emptyState.textContent = translations[currentLocale].noResults;
+            shelvesRoot.append(emptyState);
+          }
+        } else {
+          emptyState?.remove();
+        }
+      }
+      searchInput.addEventListener("input", () => filterIssues(searchInput.value));
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && searchPanel.classList.contains("is-open")) {
+          searchPanel.classList.remove("is-open");
+          searchToggle.setAttribute("aria-expanded", "false");
+          searchInput.value = "";
+          filterIssues("");
+        }
+      });
+
+      const menuToggle = document.querySelector("#menu-toggle");
+      const mainNav = document.querySelector("#main-nav");
+      menuToggle.addEventListener("click", () => {
+        const isOpen = mainNav.classList.toggle("is-open");
+        menuToggle.setAttribute("aria-expanded", String(isOpen));
+        menuToggle.setAttribute("aria-label", isOpen ? translations[currentLocale].menuClose : translations[currentLocale].menuOpen);
+      });
+      mainNav.addEventListener("click", (event) => {
+        if (event.target instanceof HTMLAnchorElement) {
+          mainNav.classList.remove("is-open");
+          menuToggle.setAttribute("aria-expanded", "false");
+          menuToggle.setAttribute("aria-label", translations[currentLocale].menuOpen);
+        }
+      });
+
+      const form = document.querySelector("#subscribe");
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        document.querySelector("#form-message").textContent = translations[currentLocale].formSubmitted;
+        form.reset();
+      });
+
+      function nextQuarter() {
+        const now = new Date();
+        const quarterMonth = Math.floor(now.getUTCMonth() / 3) * 3 + 3;
+        return new Date(Date.UTC(now.getUTCFullYear(), quarterMonth, 1));
+      }
+      function updateCountdown() {
+        const remaining = Math.max(0, nextQuarter() - Date.now());
+        const values = {
+          days: Math.floor(remaining / 86400000),
+          hours: Math.floor((remaining / 3600000) % 24),
+          minutes: Math.floor((remaining / 60000) % 60),
+          seconds: Math.floor((remaining / 1000) % 60)
+        };
+        Object.entries(values).forEach(([id, value]) => {
+          document.querySelector(`#${id}`).textContent = String(value).padStart(2, "0");
+        });
+      }
+      document.querySelector("#year").textContent = new Date().getFullYear();
+      updateCountdown();
+      window.setInterval(updateCountdown, 1000);
+    </script>
+  </body>
+</html>
